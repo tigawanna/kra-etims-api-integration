@@ -6,6 +6,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const logger = require('./utils/logger');
 const { formatError } = require('./utils/errors');
+const config = require('./config');
 
 // Load environment variables
 dotenv.config();
@@ -17,6 +18,9 @@ const basicDataService = require('./services/basic-data.service');
 const salesService = require('./services/sales.service');
 const stockService = require('./services/stock.service');
 const purchaseService = require('./services/purchase.service');
+
+// CORS middleware
+const { configureCors } = require('./middleware/cors.middleware');
 
 // Import routes
 const apiRoutes = require('./routes/api.routes');
@@ -49,6 +53,9 @@ class KRAeTimsSDK {
    */
   initializeServer() {
     this.app = express();
+    
+    // Apply CORS middleware with domain whitelisting
+    this.app.use(configureCors());
     
     // Configure middleware
     this.app.use(express.json());

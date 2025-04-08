@@ -20,6 +20,21 @@ const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 5000,
   
+  // CORS configuration
+  cors: {
+    // Default allowed origins (can be overridden by environment variable)
+    // Format: comma-separated list of domains, e.g., "https://example.com,https://app.example.com"
+    // Use '*' to allow all origins (not recommended for production)
+    allowedOrigins: process.env.CORS_ALLOWED_ORIGINS ? 
+      process.env.CORS_ALLOWED_ORIGINS.split(',') : 
+      ['http://localhost:3000', 'http://localhost:5000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    credentials: true,
+    maxAge: 86400 // 24 hours
+  },
+  
   // API endpoints
   endpoints: {
     // Authentication

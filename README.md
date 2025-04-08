@@ -126,6 +126,11 @@ API_PASSWORD=your_password
 
 # Server
 PORT=5000
+
+# CORS Configuration
+# Comma-separated list of allowed origins (no spaces)
+# Use '*' to allow all origins (not recommended for production)
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5000
 ```
 
 ## Usage
@@ -332,6 +337,39 @@ A receipt must show the following minimum required information:
 7. TIS shall not be able to correct a transaction without prior cancelation of the original transaction
 8. TIS shall print only one original receipt. Reprints shall have a watermark with mention "Copy"
 9. TIS shall not issue a receipt of goods when the corresponding stock is less than the requested quantity
+
+## CORS and Security
+
+The SDK includes built-in CORS support with domain whitelisting to secure your API endpoints. This allows you to control which domains can access your API.
+
+### Configuring CORS
+
+You can configure allowed origins in your `.env` file:
+
+```
+CORS_ALLOWED_ORIGINS=https://yourdomain.com,https://app.yourdomain.com
+```
+
+By default, the SDK allows requests from `http://localhost:3000` and `http://localhost:5000` in development.
+
+### Whitelisting Domains
+
+The CORS configuration supports:
+
+- Multiple domains (comma-separated list)
+- Wildcard (`*`) to allow all origins (not recommended for production)
+- Requests with no origin (like mobile apps or direct API calls)
+
+### CORS Options
+
+The default CORS configuration includes:
+
+- **Methods**: GET, POST, PUT, DELETE, OPTIONS
+- **Allowed Headers**: Content-Type, Authorization
+- **Credentials**: Enabled (supports cookies and authentication)
+- **Max Age**: 24 hours (caches preflight requests)
+
+You can modify these settings in `src/config/index.js` if needed.
 
 ## Development
 

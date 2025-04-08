@@ -1,12 +1,20 @@
 {
   "name": "kra-etims-sdk",
-  "version": "1.0.0",
-  "description": "KRA eTims API integration SDK",
+  "version": "1.1.0",
+  "description": "Kenya Revenue Authority (KRA) Electronic Tax Invoice Management System (eTims) API Integration SDK",
   "main": "src/index.js",
+  "files": [
+    "src/**/*",
+    "examples/**/*",
+    "README.md",
+    ".env.example"
+  ],
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm test",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -16,16 +24,30 @@
     "KRA",
     "eTims",
     "SDK",
-    "API"
+    "API",
+    "Kenya",
+    "Tax",
+    "Invoice",
+    "OSCU",
+    "VSCU",
+    "Electronic Tax Invoice"
   ],
-  "author": "Shadrack Matata",
+  "author": {
+    "name": "Shadrack Matata",
+    "email": "kisamba.debug@gmail.com",
+    "url": "https://github.com/matatashadrack"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/matatashadrack/kra-etims-api-integration/issues"
   },
   "homepage": "https://github.com/matatashadrack/kra-etims-api-integration#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "axios": "^1.6.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "joi": "^17.11.0",
