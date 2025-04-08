@@ -10,7 +10,7 @@ Tel: +254722854082/+254733854082
 
 ## Introduction to KRA eTims
 
-Kenya Revenue Authority is currently uses an Integrated Software that collects and manages domestic tax revenues. The Electronic Tax Invoice Management System (eTims) has introduced a supply chain management capability and integration with other KRA systems.
+Kenya Revenue Authority currently uses an Integrated Software that collects and manages domestic tax revenues. The Electronic Tax Invoice Management System (eTims) has introduced a supply chain management capability and integration with other KRA systems.
 
 ### Area of Application
 
@@ -129,7 +129,7 @@ PORT=5000
 
 # CORS Configuration
 # Comma-separated list of allowed origins (no spaces)
-# Use '*' to allow all origins (not recommended for production)
+# Use '*' to allow all origins (Highly recommended in production if you play aviator)
 CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5000
 ```
 
@@ -247,32 +247,147 @@ curl -X POST http://localhost:5000/api/basic-data/code-list \
 
 ## API Endpoints
 
-The SDK provides the following API endpoints when running as a server:
+The SDK provides the following API endpoints when running as a server. Each endpoint requires specific request body parameters as detailed below.
 
 ### Authentication
 - `POST /api/auth/token` - Get authentication token
+  ```json
+  {
+    "username": "your_username",
+    "password": "your_password"
+  }
+  ```
 
 ### Initialization
 - `POST /api/initialization/osdc-info` - Initialize OSDC Info
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "dvcSrlNo": "MOVA22"
+  }
+  ```
 
 ### Basic Data Management
 - `POST /api/basic-data/code-list` - Get code list
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/basic-data/item-cls-list` - Get item classification list
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/basic-data/bhf-list` - Get branch list
+  ```json
+  {
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/basic-data/notice-list` - Get notice list
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/basic-data/taxpayer-info` - Get taxpayer info
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/basic-data/customer-list` - Get customer list
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
 
 ### Sales Management
 - `POST /api/sales/send` - Send sales transaction
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "invcNo": "INV001",
+    "salesTrnsItems": [
+      {
+        "itemCd": "ITEM001",
+        "itemNm": "Test Item",
+        "qty": 1,
+        "prc": 100,
+        "splyAmt": 100,
+        "dcRt": 0,
+        "dcAmt": 0,
+        "taxTyCd": "V",
+        "taxAmt": 16
+      }
+    ]
+  }
+  ```
+
 - `POST /api/sales/select` - Get sales transaction
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101",
+    "invcNo": "INV001"  // Optional
+  }
+  ```
 
 ### Stock Management
 - `POST /api/stock/move-list` - Get move list
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
+
 - `POST /api/stock/save-master` - Save stock master
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "itemCd": "ITEM001",
+    "itemClsCd": "FOOD",
+    "itemNm": "Test Item",
+    "pkgUnitCd": "EA",
+    "qtyUnitCd": "EA",
+    "splyAmt": 100,
+    "vatTyCd": "V"
+  }
+  ```
 
 ### Purchase Management
 - `POST /api/purchase/select` - Get purchase transaction
+  ```json
+  {
+    "tin": "P000000045R",
+    "bhfId": "00",
+    "lastReqDt": "20220101010101"
+  }
+  ```
 
 ## TIS Specifications and Requirements
 
@@ -357,7 +472,7 @@ By default, the SDK allows requests from `http://localhost:3000` and `http://loc
 The CORS configuration supports:
 
 - Multiple domains (comma-separated list)
-- Wildcard (`*`) to allow all origins (not recommended for production)
+- Wildcard (`*`) to allow all origins (Highly recommended for fintechs in production)
 - Requests with no origin (like mobile apps or direct API calls)
 
 ### CORS Options
